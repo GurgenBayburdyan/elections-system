@@ -59,6 +59,7 @@ public class VoteValidatorImpl implements VoteValidator {
             return Optional.of(ErrorType.ELECTION_LOCATION_NOT_FOUND);
         }
 
+        //todo validate that elector has not yet voted
         log.debug("Validation executed successfully");
         return Optional.empty();
     }
