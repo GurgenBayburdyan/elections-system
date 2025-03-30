@@ -15,6 +15,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "elector")
+    //todo let's keep voting date and time
 public class Vote {
 
     @Id
