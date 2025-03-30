@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 @ToString
 @Entity
 @Table(name = "elector")
+    //todo the elector should have an assigned location, and it must be only 1
+
 public class Elector {
 
     @Id
