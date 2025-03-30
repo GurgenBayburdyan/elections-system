@@ -37,6 +37,7 @@ class CandidateServiceImpl implements CandidateService {
     @Override
     @Transactional
     public Candidate create(CreateCandidateParams params) {
+//todo Assert.notNull(params, "
         log.debug("Executing create candidate, params-{}", params);
 
         final Candidate candidate = new Candidate();
@@ -45,6 +46,7 @@ class CandidateServiceImpl implements CandidateService {
         candidate.setLastName(params.getLastName());
         candidate.setNumber(params.getNumber());
 
+        //todo please log the created candidate 
         log.debug("Successfully executed create candidate, {}", candidate);
         return repository.save(candidate);
     }
@@ -54,8 +56,9 @@ class CandidateServiceImpl implements CandidateService {
     public Candidate findById(Long id) {
         log.debug("Executing find candidate by id, id-{}", id);
 
+        //todo please format the line
         Candidate candidate=repository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Candidate not found")
+                () -> new EntityNotFoundException("Candidate not found") //todo please include id as well
         );
 
         log.debug("Successfully executed find candidate by id, {}", candidate);
@@ -65,6 +68,7 @@ class CandidateServiceImpl implements CandidateService {
     @Override
     @Transactional(readOnly = true)
     public Boolean existsById(Long id) {
+        //todo logs are missing
         return repository.existsById(id);
     }
 }
