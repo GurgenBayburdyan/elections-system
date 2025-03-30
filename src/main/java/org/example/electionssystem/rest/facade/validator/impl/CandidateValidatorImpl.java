@@ -16,11 +16,13 @@ import java.util.Optional;
 @Component
 @Slf4j
 @AllArgsConstructor
+    //todo please make all Impl classes package private
 public class CandidateValidatorImpl implements CandidateValidator {
     @Override
     public Optional<ErrorType> validateCreate(CreateCandidateRequestDto requestDto) {
         log.debug("Executing validate create for request-{}", requestDto);
 
+        //todo when the first name is "", it is not null, but it not acceptable. better to check with !ObjectUtils.isNotEmpty() as I remember
         if (requestDto.getFirstName() == null) {
             log.debug("Validation failed: Missing first name");
             return Optional.of(ErrorType.MISSING_FIRST_NAME);
