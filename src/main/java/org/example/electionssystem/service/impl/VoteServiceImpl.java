@@ -50,6 +50,7 @@ class VoteServiceImpl implements VoteService {
 
         final Vote vote = new Vote();
 
+        //todo lets keep the convention that if method starts with findBy, then it must return an Optional, if starts with getBy, then it returns an non-nullable entity.
         Candidate candidate = candidateService.findById(params.getCandidateId());
         Elector elector = electorService.findById(params.getElectorId());
         ElectionLocation electionLocation = electionLocationService.findById(params.getElectionLocationId());
