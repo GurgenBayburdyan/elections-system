@@ -14,6 +14,7 @@ import org.example.electionssystem.service.VoteService;
 import org.example.electionssystem.service.params.CreateVoteParams;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ class VoteServiceImpl implements VoteService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Vote> findAll() {
+    public List<Vote> getAll() {
         log.debug("Executing get all votes");
 
         List<Vote> votes = repository.findAll();
@@ -46,30 +47,41 @@ class VoteServiceImpl implements VoteService {
     @Override
     @Transactional
     public Vote create(CreateVoteParams params) {
+        Assert.notNull(params, "the params must not be null");
         log.debug("Executing create vote, params-{}", params);
 
         final Vote vote = new Vote();
 
-        //todo lets keep the convention that if method starts with findBy, then it must return an Optional, if starts with getBy, then it returns an non-nullable entity.
-        Candidate candidate = candidateService.findById(params.getCandidateId());
-        Elector elector = electorService.findById(params.getElectorId());
-        ElectionLocation electionLocation = electionLocationService.findById(params.getElectionLocationId());
+        Candidate candidate = candidateService.getById(params.getCandidateId());
+        Elector elector = electorService.getById(params.getElectorId());
+        ElectionLocation electionLocation = electionLocationService.getById(params.getElectionLocationId());
 
         vote.setCandidate(candidate);
         vote.setElector(elector);
         vote.setElectionLocation(electionLocation);
 
-        log.debug("Successfully executed create vote, {}", vote);
-        return repository.save(vote);
+        Vote saved = repository.save(vote);
+        log.debug("Successfully executed create vote, {}", saved);
+        return saved;
     }
 
     @Override
-    public List<Vote> findByElectionLocationId(Long electionLocationId) {
+    public List<Vote> getByElectionLocationId(Long electionLocationId) {
         log.debug("Executing get all votes by election location id, id-{}", electionLocationId);
 
         List<Vote> votes = repository.findAllByElectionLocation_Id(electionLocationId);
 
         log.debug("Successfully executed get all votes by election location id, {}", votes);
         return votes;
+    }
+
+    @Override
+    public Boolean existsByCandidateId(Long candidateId) {
+        log.debug("Executing exists vote by candidate id, id-{}", candidateId);
+
+        final Boolean response = repository.existsByCandidate_Id(candidateId);
+
+        log.debug("Successfully executed vote by candidate id, {}", response);
+        return response;
     }
 }

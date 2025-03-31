@@ -8,7 +8,9 @@ import org.example.electionssystem.rest.facade.validator.VoteValidator;
 import org.example.electionssystem.service.CandidateService;
 import org.example.electionssystem.service.ElectionLocationService;
 import org.example.electionssystem.service.ElectorService;
+import org.example.electionssystem.service.VoteService;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import java.util.Optional;
 
@@ -19,8 +21,9 @@ import java.util.Optional;
 @Component
 @Slf4j
 @AllArgsConstructor
-public class VoteValidatorImpl implements VoteValidator {
+class VoteValidatorImpl implements VoteValidator {
 
+    private final VoteService voteService;
     private final ElectorService electorService;
     private final ElectionLocationService electionLocationService;
     private final CandidateService candidateService;
@@ -29,17 +32,17 @@ public class VoteValidatorImpl implements VoteValidator {
     public Optional<ErrorType> validateCreate(CreateVoteRequestDto requestDto) {
         log.debug("Executing validate create for request-{}", requestDto);
 
-        if (requestDto.getCandidateId() == null) {
+        if (ObjectUtils.isEmpty(requestDto.getCandidateId())) {
             log.debug("Validation failed: Missing candidate id");
             return Optional.of(ErrorType.MISSING_CANDIDATE_ID);
         }
 
-        if (requestDto.getElectorId() == null) {
+        if (ObjectUtils.isEmpty(requestDto.getElectorId())) {
             log.debug("Validation failed: Missing elector id");
             return Optional.of(ErrorType.MISSING_ELECTOR_ID);
         }
 
-        if (requestDto.getElectionLocationId() == null) {
+        if (ObjectUtils.isEmpty(requestDto.getElectionLocationId())) {
             log.debug("Validation failed: Missing election location id");
             return Optional.of(ErrorType.MISSING_ELECTION_LOCATION_ID);
         }
@@ -59,7 +62,11 @@ public class VoteValidatorImpl implements VoteValidator {
             return Optional.of(ErrorType.ELECTION_LOCATION_NOT_FOUND);
         }
 
-        //todo validate that elector has not yet voted
+        if (voteService.existsByCandidateId(requestDto.getCandidateId())) {
+            log.debug("Validation failed: Candidate already votes");
+            return Optional.of(ErrorType.CANDIDATE_ALREADY_VOTED);
+        }
+
         log.debug("Validation executed successfully");
         return Optional.empty();
     }

@@ -10,11 +10,11 @@ import java.util.List;
  */
 public interface CandidateService {
 
-    List<Candidate> findAll();
+    List<Candidate> getAll();
 
     Candidate create(CreateCandidateParams params);
 
-    Candidate findById(Long id);
+    Candidate getById(Long id);
 
     Boolean existsById(Long id);
 

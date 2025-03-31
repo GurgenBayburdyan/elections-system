@@ -10,11 +10,11 @@ import java.util.List;
  */
 public interface ElectionLocationService {
 
-    List<ElectionLocation> findAll();
+    List<ElectionLocation> getAll();
 
     ElectionLocation create(CreateElectionLocationParams params);
 
-    ElectionLocation findById(Long id);
+    ElectionLocation getById(Long id);
 
     Boolean existsById(Long id);
 

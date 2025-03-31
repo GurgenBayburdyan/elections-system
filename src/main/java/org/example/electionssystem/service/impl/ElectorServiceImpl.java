@@ -3,12 +3,14 @@ package org.example.electionssystem.service.impl;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.electionssystem.entity.Candidate;
 import org.example.electionssystem.entity.Elector;
 import org.example.electionssystem.repository.ElectorRepository;
 import org.example.electionssystem.service.ElectorService;
 import org.example.electionssystem.service.params.CreateElectorParams;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -25,7 +27,7 @@ class ElectorServiceImpl implements ElectorService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Elector> findAll() {
+    public List<Elector> getAll() {
         log.debug("Executing get all electors");
 
         List<Elector> electors = repository.findAll();
@@ -37,6 +39,7 @@ class ElectorServiceImpl implements ElectorService {
     @Override
     @Transactional
     public Elector create(CreateElectorParams params) {
+        Assert.notNull(params, "the params must not be null");
         log.debug("Executing create elector, params-{}", params);
 
         final Elector elector = new Elector();
@@ -45,17 +48,18 @@ class ElectorServiceImpl implements ElectorService {
         elector.setLastName(params.getLastName());
         elector.setDateOfBirth(params.getDateOfBirth());
 
-        log.debug("Successfully executed create elector, {}", elector);
-        return repository.save(elector);
+        Elector saved = repository.save(elector);
+        log.debug("Successfully executed create elector, {}", saved);
+        return saved;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Elector findById(Long id) {
+    public Elector getById(Long id) {
         log.debug("Executing find elector by id, id-{}", id);
 
         Elector elector = repository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Elector not found")
+                () -> new EntityNotFoundException("Elector not found with id: " + id)
         );
 
         log.debug("Successfully executed find candidate by id, {}", elector);
@@ -65,6 +69,11 @@ class ElectorServiceImpl implements ElectorService {
     @Override
     @Transactional(readOnly = true)
     public Boolean existsById(Long id) {
-        return repository.existsById(id);
+        log.debug("Executing exists elector by id, id-{}", id);
+
+        final Boolean response = repository.existsById(id);
+
+        log.debug("Successfully executed exists elector by id, {}", response);
+        return response;
     }
 }

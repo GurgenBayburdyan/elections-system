@@ -11,11 +11,11 @@ import java.util.List;
 
 public interface ElectorService {
 
-    List<Elector> findAll();
+    List<Elector> getAll();
 
     Elector create(CreateElectorParams params);
 
-    Elector findById(Long id);
+    Elector getById(Long id);
 
     Boolean existsById(Long id);
 

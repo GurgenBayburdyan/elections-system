@@ -6,6 +6,7 @@ import org.example.electionssystem.rest.dto.request.CreateElectorRequestDto;
 import org.example.electionssystem.rest.dto.response.ErrorType;
 import org.example.electionssystem.rest.facade.validator.ElectorValidator;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import java.util.Optional;
 
@@ -16,23 +17,23 @@ import java.util.Optional;
 @Component
 @Slf4j
 @AllArgsConstructor
-public class ElectorValidatorImpl implements ElectorValidator {
+class ElectorValidatorImpl implements ElectorValidator {
 
     @Override
     public Optional<ErrorType> validateCreate(CreateElectorRequestDto requestDto) {
         log.debug("Executing validate create for request-{}", requestDto);
 
-        if (requestDto.getFirstName() == null) {
+        if (ObjectUtils.isEmpty(requestDto.getFirstName())) {
             log.debug("Validation failed: Missing first name");
             return Optional.of(ErrorType.MISSING_FIRST_NAME);
         }
 
-        if (requestDto.getLastName() == null) {
+        if (ObjectUtils.isEmpty(requestDto.getLastName())) {
             log.debug("Validation failed: Missing last name");
             return Optional.of(ErrorType.MISSING_LAST_NAME);
         }
 
-        if (requestDto.getDateOfBirth() == null) {
+        if (ObjectUtils.isEmpty(requestDto.getDateOfBirth())) {
             log.debug("Validation failed: Missing date of birth");
             return Optional.of(ErrorType.MISSING_DATE_OF_BIRTH);
         }

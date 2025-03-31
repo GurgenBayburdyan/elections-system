@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+
 
 /**
  * @author Gurgen Bayburdyan
@@ -15,7 +17,6 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "elector")
-    //todo let's keep voting date and time
 public class Vote {
 
     @Id
@@ -33,5 +34,8 @@ public class Vote {
     @ManyToOne
     @JoinColumn(name = "candidate_id", nullable = false, foreignKey = @ForeignKey(name = "FK_VOTE_CANDIDATE_ID"))
     private Candidate candidate;
+
+    @Column(name = "time", nullable = false)
+    private LocalDateTime time;
 
 }

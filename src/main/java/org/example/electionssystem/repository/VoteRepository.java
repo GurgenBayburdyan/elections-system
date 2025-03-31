@@ -13,4 +13,6 @@ import java.util.List;
 @Repository
 public interface VoteRepository extends JpaRepository<Vote, Long> {
     List<Vote> findAllByElectionLocation_Id(Long electionLocationId);
+
+    Boolean existsByCandidate_Id(Long candidateId);
 }

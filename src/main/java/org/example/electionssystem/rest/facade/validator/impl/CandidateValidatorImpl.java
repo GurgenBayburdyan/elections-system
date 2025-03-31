@@ -6,6 +6,7 @@ import org.example.electionssystem.rest.dto.request.CreateCandidateRequestDto;
 import org.example.electionssystem.rest.dto.response.ErrorType;
 import org.example.electionssystem.rest.facade.validator.CandidateValidator;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import java.util.Optional;
 
@@ -16,24 +17,22 @@ import java.util.Optional;
 @Component
 @Slf4j
 @AllArgsConstructor
-    //todo please make all Impl classes package private
-public class CandidateValidatorImpl implements CandidateValidator {
+class CandidateValidatorImpl implements CandidateValidator {
     @Override
     public Optional<ErrorType> validateCreate(CreateCandidateRequestDto requestDto) {
         log.debug("Executing validate create for request-{}", requestDto);
 
-        //todo when the first name is "", it is not null, but it not acceptable. better to check with !ObjectUtils.isNotEmpty() as I remember
-        if (requestDto.getFirstName() == null) {
-            log.debug("Validation failed: Missing first name");
+        if (ObjectUtils.isEmpty(requestDto.getFirstName())) {
+            log.debug("Validation failed: Missing or empty first name");
             return Optional.of(ErrorType.MISSING_FIRST_NAME);
         }
 
-        if (requestDto.getLastName() == null) {
+        if (ObjectUtils.isEmpty(requestDto.getLastName())) {
             log.debug("Validation failed: Missing last name");
             return Optional.of(ErrorType.MISSING_LAST_NAME);
         }
 
-        if (requestDto.getNumber() == null) {
+        if (ObjectUtils.isEmpty(requestDto.getNumber())) {
             log.debug("Validation failed: Missing number");
             return Optional.of(ErrorType.MISSING_NUMBER);
         }

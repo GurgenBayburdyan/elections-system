@@ -29,7 +29,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     public Integer electorCount() {
         log.debug("Executing get electors count");
 
-        final Integer count = electorService.findAll().size();
+        final Integer count = electorService.getAll().size();
 
         log.debug("Successfully executed get electors count-{}", count);
         return count;
@@ -39,7 +39,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     public Integer voteCount() {
         log.debug("Executing get votes count");
 
-        final Integer count = voteService.findAll().size();
+        final Integer count = voteService.getAll().size();
 
         log.debug("Successfully executed get vote count-{}", count);
         return count;
@@ -49,7 +49,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     public Integer candidateCount() {
         log.debug("Executing get candidates count");
 
-        final Integer count = candidateService.findAll().size();
+        final Integer count = candidateService.getAll().size();
 
         log.debug("Successfully executed get candidates count-{}", count);
         return count;
@@ -59,7 +59,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     public Integer electionLocationCount() {
         log.debug("Executing get election locations count");
 
-        final Integer count = electionLocationService.findAll().size();
+        final Integer count = electionLocationService.getAll().size();
 
         log.debug("Successfully executed get election locations count-{}", count);
         return count;
@@ -68,11 +68,11 @@ public class StatisticsServiceImpl implements StatisticsService {
     @Override
     public Map<Long, Map<Long, Float>> electedCandidatesInElectionLocations() {
         Map<Long, Map<Long, Float>> electedCandidatesInElectionLocations = new HashMap<>();
-        List<ElectionLocation> electionLocations = electionLocationService.findAll();
+        List<ElectionLocation> electionLocations = electionLocationService.getAll();
 
         for (ElectionLocation electionLocation : electionLocations) {
             Map<Long, Float> electedCandidatesInElectionLocation = new HashMap<>();
-            List<Vote> votes = voteService.findByElectionLocationId(electionLocation.getId());
+            List<Vote> votes = voteService.getByElectionLocationId(electionLocation.getId());
 
             Map<Long, Integer> candidateVoteCounts = new HashMap<>();
 

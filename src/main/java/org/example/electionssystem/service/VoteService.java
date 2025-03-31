@@ -10,10 +10,12 @@ import java.util.List;
  */
 public interface VoteService {
 
-    List<Vote> findAll();
+    List<Vote> getAll();
 
     Vote create(CreateVoteParams params);
 
-    List<Vote> findByElectionLocationId(Long electionLocationId);
+    List<Vote> getByElectionLocationId(Long electionLocationId);
+
+    Boolean existsByCandidateId(Long candidateId);
 
 }

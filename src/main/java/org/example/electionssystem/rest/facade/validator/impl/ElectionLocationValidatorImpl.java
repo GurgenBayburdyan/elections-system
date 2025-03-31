@@ -6,6 +6,7 @@ import org.example.electionssystem.rest.dto.request.CreateElectionLocationReques
 import org.example.electionssystem.rest.dto.response.ErrorType;
 import org.example.electionssystem.rest.facade.validator.ElectionLocationValidator;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import java.util.Optional;
 
@@ -16,13 +17,13 @@ import java.util.Optional;
 @Component
 @Slf4j
 @AllArgsConstructor
-public class ElectionLocationValidatorImpl implements ElectionLocationValidator {
+class ElectionLocationValidatorImpl implements ElectionLocationValidator {
 
     @Override
     public Optional<ErrorType> validateCreate(CreateElectionLocationRequestDto requestDto) {
         log.debug("Executing validate create for request-{}", requestDto);
 
-        if (requestDto.getAddress() == null) {
+        if (ObjectUtils.isEmpty(requestDto.getAddress())) {
             log.debug("Validation failed: Missing address");
             return Optional.of(ErrorType.MISSING_ADDRESS);
         }

@@ -9,6 +9,7 @@ import org.example.electionssystem.service.CandidateService;
 import org.example.electionssystem.service.params.CreateCandidateParams;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -25,10 +26,10 @@ class CandidateServiceImpl implements CandidateService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Candidate> findAll() {
+    public List<Candidate> getAll() {
         log.debug("Executing get all candidates");
 
-        List<Candidate> candidates = repository.findAll();
+        final List<Candidate> candidates = repository.findAll();
 
         log.debug("Successfully executed get all candidates, {}", candidates);
         return candidates;
@@ -37,7 +38,7 @@ class CandidateServiceImpl implements CandidateService {
     @Override
     @Transactional
     public Candidate create(CreateCandidateParams params) {
-//todo Assert.notNull(params, "
+        Assert.notNull(params, "the params must not be null");
         log.debug("Executing create candidate, params-{}", params);
 
         final Candidate candidate = new Candidate();
@@ -46,20 +47,20 @@ class CandidateServiceImpl implements CandidateService {
         candidate.setLastName(params.getLastName());
         candidate.setNumber(params.getNumber());
 
-        //todo please log the created candidate 
-        log.debug("Successfully executed create candidate, {}", candidate);
-        return repository.save(candidate);
+        final Candidate saved = repository.save(candidate);
+        log.debug("Successfully executed create candidate, {}", saved);
+        return saved;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Candidate findById(Long id) {
+    public Candidate getById(Long id) {
         log.debug("Executing find candidate by id, id-{}", id);
 
-        //todo please format the line
-        Candidate candidate=repository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Candidate not found") //todo please include id as well
+        final Candidate candidate = repository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Candidate not found with id: " + id)
         );
+
 
         log.debug("Successfully executed find candidate by id, {}", candidate);
         return candidate;
@@ -68,7 +69,11 @@ class CandidateServiceImpl implements CandidateService {
     @Override
     @Transactional(readOnly = true)
     public Boolean existsById(Long id) {
-        //todo logs are missing
-        return repository.existsById(id);
+        log.debug("Executing exists candidate by id, id-{}", id);
+
+        final Boolean response = repository.existsById(id);
+
+        log.debug("Successfully executed exists candidate by id, {}", response);
+        return response;
     }
 }
