@@ -76,12 +76,12 @@ class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    public Boolean existsByCandidateId(Long candidateId) {
-        log.debug("Executing exists vote by candidate id, id-{}", candidateId);
+    public Boolean existsByElectorId(Long electorId) {
+        log.debug("Executing exists vote by elector id, id-{}", electorId);
 
-        final Boolean response = repository.existsByCandidate_Id(candidateId);
+        final Boolean response = repository.existsByElector_Id(electorId);
 
-        log.debug("Successfully executed vote by candidate id, {}", response);
+        log.debug("Successfully executed vote by elector id, {}", response);
         return response;
     }
 }

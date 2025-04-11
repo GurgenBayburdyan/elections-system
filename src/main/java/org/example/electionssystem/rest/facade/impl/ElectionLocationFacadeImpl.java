@@ -33,7 +33,7 @@ public class ElectionLocationFacadeImpl implements ElectionLocationFacade {
     public List<ElectionLocationDetailsDto> findAll() {
         log.info("Executing get all election location rest API");
 
-        final List<ElectionLocation> electionLocations = service.findAll();
+        final List<ElectionLocation> electionLocations = service.getAll();
 
         final List<ElectionLocationDetailsDto> detailsDtos = mapper.toDetailsDtoList(electionLocations);
 

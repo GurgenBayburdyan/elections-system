@@ -33,7 +33,7 @@ public class CandidateFacadeImpl implements CandidateFacade {
     public List<CandidateDetailsDto> findAll() {
         log.info("Executing get all candidates rest API");
 
-        final List<Candidate> candidates = service.findAll();
+        final List<Candidate> candidates = service.getAll();
 
         final List<CandidateDetailsDto> detailsDtos = mapper.toDetailsDtoList(candidates);
 

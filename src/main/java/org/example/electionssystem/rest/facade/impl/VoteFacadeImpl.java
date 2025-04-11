@@ -33,7 +33,7 @@ public class VoteFacadeImpl implements VoteFacade {
     public List<VoteDetailsDto> findAll() {
         log.info("Executing get all votes rest API");
 
-        final List<Vote> votes = service.findAll();
+        final List<Vote> votes = service.getAll();
 
         final List<VoteDetailsDto> detailsDtos = mapper.toDetailsDtoList(votes);
 

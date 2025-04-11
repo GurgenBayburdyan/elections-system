@@ -38,6 +38,11 @@ class ElectorValidatorImpl implements ElectorValidator {
             return Optional.of(ErrorType.MISSING_DATE_OF_BIRTH);
         }
 
+        if (ObjectUtils.isEmpty(requestDto.getPassportNumber())) {
+            log.debug("Validation failed: Missing passport number");
+            return Optional.of(ErrorType.MISSING_PASSPORT_NUMBER);
+        }
+
         log.debug("Validation executed successfully");
         return Optional.empty();
     }

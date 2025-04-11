@@ -16,6 +16,9 @@ import java.time.LocalDateTime;
 @ToString
 public class ElectorDetailsDto extends AbstractErrorAwareDetailsDto {
 
+    @JsonProperty("id")
+    private Long id;
+
     @JsonProperty("firstName")
     private String firstName;
 
@@ -24,6 +27,9 @@ public class ElectorDetailsDto extends AbstractErrorAwareDetailsDto {
 
     @JsonProperty("dateOfBirth")
     private LocalDateTime dateOfBirth;
+
+    @JsonProperty("passportNumber")
+    private String passportNumber;
 
     public ElectorDetailsDto(ErrorType errorType) {
         super(errorType);

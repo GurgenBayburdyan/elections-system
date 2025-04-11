@@ -16,6 +16,6 @@ public interface VoteService {
 
     List<Vote> getByElectionLocationId(Long electionLocationId);
 
-    Boolean existsByCandidateId(Long candidateId);
+    Boolean existsByElectorId(Long candidateId);
 
 }

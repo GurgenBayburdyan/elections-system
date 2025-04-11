@@ -22,9 +22,11 @@ public class ElectorMapper {
         log.trace("Mapping elector - {} to elector details dto", elector);
 
         final ElectorDetailsDto dto = new ElectorDetailsDto();
+        dto.setId(elector.getId());
         dto.setFirstName(elector.getFirstName());
         dto.setLastName(elector.getLastName());
         dto.setDateOfBirth(elector.getDateOfBirth());
+        dto.setPassportNumber(elector.getPassportNumber());
 
         log.trace("Mapped elector {}", dto);
         return dto;
@@ -46,7 +48,8 @@ public class ElectorMapper {
         final CreateElectorParams params = new CreateElectorParams(
                 requestDto.getFirstName(),
                 requestDto.getLastName(),
-                requestDto.getDateOfBirth()
+                requestDto.getDateOfBirth(),
+                requestDto.getPassportNumber()
         );
 
         log.trace("Mapped create elector request dto {}", params);

@@ -14,6 +14,10 @@ import lombok.ToString;
 @ToString
 public class CandidateDetailsDto extends AbstractErrorAwareDetailsDto {
 
+
+    @JsonProperty("id")
+    private Long id;
+
     @JsonProperty("firstName")
     private String firstName;
 

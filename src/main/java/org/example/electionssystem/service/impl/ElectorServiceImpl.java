@@ -3,7 +3,6 @@ package org.example.electionssystem.service.impl;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.electionssystem.entity.Candidate;
 import org.example.electionssystem.entity.Elector;
 import org.example.electionssystem.repository.ElectorRepository;
 import org.example.electionssystem.service.ElectorService;
@@ -47,6 +46,7 @@ class ElectorServiceImpl implements ElectorService {
         elector.setFirstName(params.getFirstName());
         elector.setLastName(params.getLastName());
         elector.setDateOfBirth(params.getDateOfBirth());
+        elector.setPassportNumber(params.getPassportNumber());
 
         Elector saved = repository.save(elector);
         log.debug("Successfully executed create elector, {}", saved);
@@ -62,7 +62,7 @@ class ElectorServiceImpl implements ElectorService {
                 () -> new EntityNotFoundException("Elector not found with id: " + id)
         );
 
-        log.debug("Successfully executed find candidate by id, {}", elector);
+        log.debug("Successfully executed find elector by id, {}", elector);
         return elector;
     }
 
@@ -75,5 +75,16 @@ class ElectorServiceImpl implements ElectorService {
 
         log.debug("Successfully executed exists elector by id, {}", response);
         return response;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Elector getByPassportNumber(String passportNumber) {
+        log.debug("Executing find elector by passport number, passport number-{}", passportNumber);
+
+        Elector elector = repository.findByPassportNumber(((passportNumber)));
+
+        log.debug("Successfully executed find elector by passport number, {}", elector);
+        return elector;
     }
 }

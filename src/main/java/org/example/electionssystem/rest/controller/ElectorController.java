@@ -41,4 +41,14 @@ public class ElectorController {
         log.info("Successfully executed create elector, response entity-{}", responseEntity);
         return responseEntity;
     }
+
+    @GetMapping("/{passportNumber}")
+    public ResponseEntity<ElectorDetailsDto> findByPassportNumber(@PathVariable("passportNumber") String passportNumber) {
+        log.info("Executing find elector by passport number rest API, passport number-{}", passportNumber);
+
+        ResponseEntity<ElectorDetailsDto> responseEntity = ResponseEntity.ok(facade.findByPassportNumber(passportNumber));
+
+        log.info("Successfully executed find elector by passport number, response entity-{}", responseEntity);
+        return responseEntity;
+    }
 }

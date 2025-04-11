@@ -22,6 +22,7 @@ public class ElectionLocationMapper {
         log.trace("Mapping election location - {} to election location details dto", electionLocation);
 
         final ElectionLocationDetailsDto dto = new ElectionLocationDetailsDto();
+        dto.setId(electionLocation.getId());
         dto.setAddress(electionLocation.getAddress());
 
         log.trace("Mapped election location {}", dto);

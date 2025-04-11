@@ -22,6 +22,7 @@ public class CandidateMapper {
         log.trace("Mapping candidate - {} to candidate details dto", candidate);
 
         final CandidateDetailsDto dto = new CandidateDetailsDto();
+        dto.setId(candidate.getId());
         dto.setFirstName(candidate.getFirstName());
         dto.setLastName(candidate.getLastName());
         dto.setNumber(candidate.getNumber());

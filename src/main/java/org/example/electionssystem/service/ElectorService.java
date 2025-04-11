@@ -19,4 +19,6 @@ public interface ElectorService {
 
     Boolean existsById(Long id);
 
+    Elector getByPassportNumber(String passportNumber);
+
 }

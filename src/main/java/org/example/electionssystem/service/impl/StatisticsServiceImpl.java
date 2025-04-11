@@ -81,16 +81,6 @@ public class StatisticsServiceImpl implements StatisticsService {
                 candidateVoteCounts.put(candidateId, candidateVoteCounts.getOrDefault(candidateId, 0) + 1);
             }
 
-            int maxVotes = 0;
-
-            for (Long candidateId : candidateVoteCounts.keySet()) {
-                Integer voteCount = candidateVoteCounts.get(candidateId);
-                if (voteCount > maxVotes) {
-                    maxVotes = voteCount;
-                }
-            }
-
-
             for (Long candidateId : candidateVoteCounts.keySet()) {
                 Integer voteCount = candidateVoteCounts.get(candidateId);
                 float percentage = (float) voteCount / votes.size() * 100;

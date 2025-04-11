@@ -25,4 +25,7 @@ public class CreateElectorRequestDto {
     @JsonProperty("dateOfBirth")
     private LocalDateTime dateOfBirth;
 
+    @JsonProperty("passportNumber")
+    private String passportNumber;
+
 }

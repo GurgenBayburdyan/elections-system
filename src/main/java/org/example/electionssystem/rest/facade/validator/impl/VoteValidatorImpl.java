@@ -62,9 +62,9 @@ class VoteValidatorImpl implements VoteValidator {
             return Optional.of(ErrorType.ELECTION_LOCATION_NOT_FOUND);
         }
 
-        if (voteService.existsByCandidateId(requestDto.getCandidateId())) {
+        if (voteService.existsByElectorId(requestDto.getElectorId())) {
             log.debug("Validation failed: Candidate already votes");
-            return Optional.of(ErrorType.CANDIDATE_ALREADY_VOTED);
+            return Optional.of(ErrorType.ELECTOR_ALREADY_VOTED);
         }
 
         log.debug("Validation executed successfully");

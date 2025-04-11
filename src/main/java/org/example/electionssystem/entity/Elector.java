@@ -27,10 +27,10 @@ public class Elector {
     @Column(name = "last_Name", nullable = false)
     private String lastName;
 
-    @Column(name = "date_Of_Birth", nullable = false)
+    @Column(name = "date_of_birth", nullable = false)
     private LocalDateTime dateOfBirth;
 
-    @Column(name = "address", nullable = false)
-    private String address;
+    @Column(name = "passport_number", nullable = false)
+    private String passportNumber;
 
 }

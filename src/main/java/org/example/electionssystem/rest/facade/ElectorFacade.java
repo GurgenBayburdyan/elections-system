@@ -14,4 +14,6 @@ public interface ElectorFacade {
 
     ElectorDetailsDto create(CreateElectorRequestDto requestDto);
 
+    ElectorDetailsDto findByPassportNumber(String passportNumber);
+
 }

@@ -14,5 +14,5 @@ import java.util.List;
 public interface VoteRepository extends JpaRepository<Vote, Long> {
     List<Vote> findAllByElectionLocation_Id(Long electionLocationId);
 
-    Boolean existsByCandidate_Id(Long candidateId);
+    Boolean existsByElector_Id(Long electorId);
 }

@@ -33,7 +33,7 @@ public class ElectorFacadeImpl implements ElectorFacade {
     public List<ElectorDetailsDto> findAll() {
         log.info("Executing get all electors rest API");
 
-        final List<Elector> electors = service.findAll();
+        final List<Elector> electors = service.getAll();
 
         final List<ElectorDetailsDto> detailsDtos = mapper.toDetailsDtoList(electors);
 
@@ -59,6 +59,18 @@ public class ElectorFacadeImpl implements ElectorFacade {
         final  ElectorDetailsDto detailsDto = mapper.toDetailsDto(elector);
 
         log.info("Successfully executed create elector rest API, response - {}", detailsDto);
+        return detailsDto;
+    }
+
+    @Override
+    public ElectorDetailsDto findByPassportNumber(String passportNumber) {
+        log.info("Executing find elector by passport number - {}:", passportNumber);
+
+        final Elector elector = service.getByPassportNumber(passportNumber);
+
+        final ElectorDetailsDto detailsDto = mapper.toDetailsDto(elector);
+
+        log.info("Successfully executed find elector by passport number rest API, response - {}", detailsDto);
         return detailsDto;
     }
 }

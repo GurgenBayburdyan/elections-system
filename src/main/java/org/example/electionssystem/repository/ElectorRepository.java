@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ElectorRepository extends JpaRepository<Elector, Long> {
+    Elector findByPassportNumber(String passportNumber);
+
 }
